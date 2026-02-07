@@ -14,9 +14,9 @@ class Database {
         } else {
             // Configuración HOSTINGER (Cambia estos datos por los de tu panel)
             $host = "localhost"; // Generalmente se queda igual en Hostinger
-            $db   = "u293134486_bd_angu_php_em"; 
-            $user = "u293134486_angu_php";
-            $pass = "4c+insH?G";
+            $db   = "la base de dato"; 
+            $user = "usuario de la base de dato";
+            $pass = "contraseña";
         }
 
         try {

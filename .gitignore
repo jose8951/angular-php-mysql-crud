@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+api/config_real.php
 
 # Node
 /node_modules
