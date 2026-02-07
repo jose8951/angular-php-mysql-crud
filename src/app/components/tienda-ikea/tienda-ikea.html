@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+
+<div class="page-wrapper">
+  <nav class="categorias-bar">
+    <div class="scroll-container">
+      @for (cat of categorias; track cat) {
+        <button class="pill-button">{{ cat }}</button>
+      }
+    </div>
+  </nav>
+
+  <section class="hero-container">
+    @for (oferta of ofertas; track oferta.titulo) {
+      <div class="banner-card">
+        <div class="banner-img">
+          <img [src]="oferta.imagen" (error)="onImageError($event)">
+        </div>
+        <div class="banner-info">
+          <h2>{{ oferta.titulo }}</h2>
+          <p>{{ oferta.subtitulo }}</p>
+        </div>
+      </div>
+    }
+  </section>
+
+  <section class="content-section">
+    <h2 class="title-left">Nuestros Productos</h2>
+    <div class="auto-grid">
+      @for (prod of productos; track prod.id) {
+        <div class="item-card">
+          <div class="item-img">
+            <img [src]="prod.imagen" (error)="onImageError($event)">
+          </div>
+          <div class="item-details">
+            <h3 class="name">{{ prod.nombre }}</h3>
+            <p class="desc">{{ prod.descripcion }}</p>
+            <div class="bottom-row">
+              <span class="price">{{ prod.precio | currency:'EUR' }}</span>
+              <button class="add-btn">Añadir</button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+</div>

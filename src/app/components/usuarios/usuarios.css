@@ -1,0 +1,24 @@
+/* Estilo para que todas las etiquetas de la tabla se vean bien */
+.badge {
+  padding: 5px 12px;
+  border-radius: 50px; /* Forma de pastilla como en tu foto */
+  font-weight: bold;
+  color: white !important; /* Texto blanco siempre */
+  min-width: 85px;
+  display: inline-block;
+}
+
+/* 1. Azul para el Admin */
+.rol-admin {
+  background-color: #0d6efd !important;
+}
+
+/* 2. Verde para el Editor */
+.rol-editor {
+  background-color: #198754 !important;
+}
+
+/* 3. Gris para el Usuario */
+.rol-usuario {
+  background-color: #6c757d !important;
+}

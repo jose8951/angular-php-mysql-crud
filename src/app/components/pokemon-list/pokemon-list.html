@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+
+<div class="pokedex-container">
+  <h1 class="pokedex-title">Pokédex Regional</h1>
+
+  <div class="toolbar">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="textoBusqueda" 
+        (input)="aplicarFiltros()"
+        placeholder="Escribe 'Pikachu' aquí..."
+        class="search-input">
+    </div>
+
+    <div class="filter-group">
+      <button [class.active]="filtroActual === 'Todos'" (click)="aplicarFiltros('Todos')" class="btn-nav">Todos</button>
+      <button [class.active]="filtroActual === 'Tierra'" (click)="aplicarFiltros('Tierra')" class="btn-nav">⛰️ Tierra</button>
+      <button [class.active]="filtroActual === 'Mar'" (click)="aplicarFiltros('Mar')" class="btn-nav">🌊 Mar</button>
+    </div>
+
+    <div class="counter-pill">
+      <strong>{{ pokemonsMostrados.length }}</strong> Pokémon
+    </div>
+  </div>
+
+  <div class="pokemon-grid">
+    @for (poke of pokemonsMostrados; track poke.id) {
+      <article class="poke-card" [style.border-color]="poke.color">
+        
+        <div class="poke-header" [style.background-color]="poke.color">
+          <span class="poke-id">#{{ poke.id.toString().padStart(3, '0') }}</span>
+          <h2 class="poke-name">{{ poke.nombre }}</h2>
+        </div>
+        
+        <div class="poke-img-container">
+          <img [src]="poke.imagen" [alt]="poke.nombre" (error)="onImageError($event)">
+        </div>
+
+        <div class="poke-info">
+          <p class="habitat-text"><strong>Hábitat:</strong> {{ poke.habitat }}</p>
+          
+          <div class="stats-row">
+            <div class="stat-badge">HP: {{ poke.hp }}</div>
+            <div class="stat-badge">ATK: {{ poke.ataque }}</div>
+          </div>
+        </div>
+
+      </article>
+    } @empty {
+      <div class="empty-state">
+        <p>No hay resultados para "<strong>{{ textoBusqueda }}</strong>".</p>
+        <p>Prueba a borrar el texto y pulsar el botón <strong>"Todos"</strong>.</p>
+      </div>
+    }
+  </div>
+</div>

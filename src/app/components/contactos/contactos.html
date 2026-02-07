@@ -1,0 +1,43 @@
+<app-navbar></app-navbar> 
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">Nuevo Contacto</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Nombre Completo</label>
+              <input type="text" class="form-control" placeholder="Ej. Juan Pérez">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Teléfono</label>
+              <input type="tel" class="form-control" placeholder="+34 ...">
+            </div>
+            <button type="submit" class="btn btn-success w-100">Guardar Contacto</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-4">Mis Contactos</h5>
+          <div class="list-group">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-0">Maria García</h6>
+                <small class="text-muted">+34 600 000 000</small>
+              </div>
+              <button class="btn btn-sm btn-outline-danger border-0">Borrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

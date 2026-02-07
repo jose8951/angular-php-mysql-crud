@@ -1,0 +1,123 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+      {{ usuario.id && usuario.id > 0 ? 'Modificar' : 'Nuevo' }} Usuario
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="guardar()" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Nombre Completo</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombre"
+            [(ngModel)]="usuario.nombre_completo"
+            required
+          />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            [(ngModel)]="usuario.email"
+            required
+          />
+        </div>
+
+        <div class="col-md-2">
+          <label class="form-label">Rol</label>
+          <select class="form-select" name="rol" [(ngModel)]="usuario.rol">
+            <option value="admin">Admin</option>
+            <option value="editor">Editor</option>
+            <option value="usuario">Usuario</option>
+          </select>
+        </div>
+
+        @if (!usuario.id || usuario.id === 0) {
+        <div class="col-md-2">
+          <label class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            [(ngModel)]="usuario.password"
+          />
+        </div>
+        }
+        <div class="col-12 mt-3">
+          <button
+            type="submit"
+            [class]="usuario.id && usuario.id > 0 ? 'btn btn-primary me-2' : 'btn btn-success me-2'"
+          >
+            {{ usuario.id && usuario.id > 0 ? 'Modificar' : 'Guardar' }}
+          </button>
+
+          <button type="button" (click)="limpiar()" class="btn btn-secondary">
+            Limpiar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-0">
+      <table class="table table-striped table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of listaUsuarios; track item.id) {
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.nombre_completo }}</td>
+            <td>{{ item.email }}</td>
+
+            <!-- <td><span class="badge bg-info text-dark">{{ item.rol }}</span></td> -->
+
+            <td>
+              <span
+                class="badge"
+                [ngClass]="{
+    'rol-admin': item.rol === 'admin',
+    'rol-editor': item.rol === 'editor',
+    'rol-usuario': item.rol === 'usuario'
+  }"
+              >
+                {{ item.rol }}
+              </span>
+            </td>
+
+            <td class="text-center">
+              <button
+                (click)="seleccionar(item)"
+                class="btn btn-warning btn-sm me-2"
+              >
+                Editar
+              </button>
+              <button (click)="eliminar(item.id)" class="btn btn-danger btn-sm">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="5" class="text-center py-4">
+              No hay usuarios disponibles
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

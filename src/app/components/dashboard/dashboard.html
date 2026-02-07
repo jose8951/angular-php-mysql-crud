@@ -1,0 +1,171 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <div class="card shadow-sm mb-5">
+    <div
+      [class]="contacto.id > 0 ? 'card-header bg-warning text-dark' : 'card-header bg-success text-white'"
+    >
+      <h5 class="mb-0">
+        {{ contacto.id > 0 ? '📝 Modificando Contacto: ' + contacto.nombre : '➕
+        Registrar Nuevo Contacto' }}
+      </h5>
+    </div>
+
+    <div class="card-body">
+      <form (ngSubmit)="enviarFormulario()" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Nombre Completo</label>
+          <input
+            type="text"
+            name="nombre"
+            [(ngModel)]="contacto.nombre"
+            class="form-control"
+            placeholder="Ej. Juan Pérez"
+            required
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Puesto / Cargo</label>
+          <input
+            type="text"
+            name="puesto"
+            [(ngModel)]="contacto.puesto"
+            class="form-control"
+            placeholder="Ej. Gerente"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Departamento</label>
+          <input
+            type="text"
+            name="departamento"
+            [(ngModel)]="contacto.departamento"
+            class="form-control"
+            placeholder="Ej. Ventas"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Correo Electrónico</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="contacto.email"
+            class="form-control"
+            placeholder="correo@empresa.com"
+            required
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Teléfono</label>
+          <input
+            type="text"
+            name="telefono"
+            [(ngModel)]="contacto.telefono"
+            class="form-control"
+            placeholder="555-0101"
+          />
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold">Estado del Empleado</label>
+          <select
+            name="estado"
+            [(ngModel)]="contacto.estado"
+            class="form-select"
+          >
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
+
+        <div class="col-12 d-flex justify-content-end gap-2 mt-3">
+          @if (contacto.id > 0) {
+          <button type="button" class="btn btn-secondary" (click)="limpiar()">
+            Cancelar Edición
+          </button>
+          }
+          <button
+            type="submit"
+            class="btn"
+            [ngClass]="contacto.id > 0 ? 'btn-warning' : 'btn-success'"
+          >
+            {{ contacto.id > 0 ? 'Actualizar Datos' : 'Guardar Contacto' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-secondary">Listado de Contactos</h2>
+    <span class="badge bg-info text-dark"
+      >Total: {{ listaContactos.length }}</span
+    >
+  </div>
+
+  <div class="table-responsive shadow rounded">
+    <table class="table table-hover table-striped mb-0">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Puesto / Depto</th>
+          <th>Email</th>
+          <th>Ingreso</th>
+          <th>Estado</th>
+          <th colspan="2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="align-middle text-center">
+        @for (item of listaContactos; track item.id) {
+        <tr>
+          <td><strong>{{ item.id }}</strong></td>
+          <td class="text-start">{{ item.nombre }}</td>
+          <td>
+            <small class="d-block fw-bold">{{ item.puesto }}</small>
+            <small class="text-muted">{{ item.departamento }}</small>
+          </td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.fecha_ingreso }}</td>
+          <td>
+            <span
+              class="badge"
+              [class]="item.estado === 'activo' ? 'text-bg-success' : 'text-bg-danger'"
+            >
+              {{ item.estado | uppercase }}
+            </span>
+          </td>
+          <td style="width: 50px">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              (click)="editar(item)"
+              title="Editar"
+            >
+              Editar
+            </button>
+          </td>
+          <td style="width: 50px">
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="borrar(item.id)"
+              title="Eliminar"
+            >
+              Borrar
+            </button>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="8" class="p-5 text-center text-muted">
+            <p class="mb-0">No se encontraron registros en el sistema.</p>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

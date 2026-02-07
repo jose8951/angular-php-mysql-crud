@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<div class="heroes-page"> <h1 class="glitch-title">Database: Justice League & Avengers</h1>
+
+  <div class="heroes-grid"> @for (hero of heroes; track hero.superhero) {
+      <article class="hero-card"> <div class="image-box"> <img [src]="hero.imagen" [alt]="hero.superhero" (error)="onImageError($event)">
+          
+          @if (hero.publisher === 'Marvel Comics') {
+            <div class="badge marvel">MARVEL</div>
+          } @else {
+            <div class="badge dc">DC</div>
+          }
+        </div>
+
+        <div class="content-box"> <p class="real-name">{{ hero.alter_ego }}</p>
+          <h2 class="hero-name">{{ hero.superhero }}</h2>
+          
+          <div class="info-row">
+            <span class="label">First Appearance:</span> 
+            <span class="value">{{ hero.first_appearance }}</span>
+          </div>
+          <div class="info-row">
+            <span class="label">Characters:</span> 
+            <span class="value">{{ hero.characters }}</span>
+          </div>
+
+          <button class="action-btn">View Intelligence Report</button>
+        </div>
+      </article>
+    } @empty {
+      <div class="no-data">No heroes found in the database.</div>
+    }
+  </div>
+</div>
